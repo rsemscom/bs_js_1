@@ -16,16 +16,15 @@
     //Student
     function Student(age, name) {
         Student.superclass.apply(this, arguments);
+        this.study = function() {
+            return this.age--;
+        };
     }
 
     Student.superclass = Man;
     Student.prototype.constructor = Student;
 
-    Student.prototype = Man.prototype;
-
-    Student.prototype.study = function() {
-        return this.age--;
-    };
+    Student.prototype.assign = Man.prototype;
 
 
 </script>
@@ -55,5 +54,16 @@
     Student2.prototype.study = function() {
         return this.age--;
     };
+
+</script>
+
+
+<script type="text/javascript">
+
+    //Duck Type
+
+    function duckType(obj) {
+        return (typeof obj.study !== 'undefined')?'student':'man';
+    }
 
 </script>
