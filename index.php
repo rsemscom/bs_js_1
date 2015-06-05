@@ -26,6 +26,11 @@
 
     Student.prototype.assign = Man.prototype;
 
+    console.log("{Man.prototype} = ", Man.prototype);
+    console.log("{Student.prototype} = ", Student.prototype);
+
+    console.log("{new Man(1, 2)} = ", new Man(1, 2));
+    console.log("{new Student(1, 2)} = ", new Student(1, 2));
 
 </script>
 
@@ -46,15 +51,20 @@
     //Student
     function Student2(age, name) {
         Man2.call(this, age, name);
+
+        this.study = function() {
+            return this.age--;
+        };
     }
 
     Student2.prototype = Object.create(Man2.prototype);
     Student2.prototype.constructor = Student2;
 
-    Student2.prototype.study = function() {
-        return this.age--;
-    };
+    console.log("{Man2.prototype} = ", Man2.prototype);
+    console.log("{Student2.prototype} = ", Student2.prototype);
 
+    console.log("{new Man2(1, 2)} = ", new Man2(1, 2));
+    console.log("{new Student2(1, 2)} = ", new Student2(1, 2));
 </script>
 
 
@@ -63,7 +73,21 @@
     //Duck Type
 
     function duckType(obj) {
-        return (typeof obj.study !== 'undefined')?'student':'man';
+        return (obj.hasOwnProperty('study'))?'student':'man';
     }
+    console.log("{ duckType( new Man2()) } = ", duckType( new Man2() ) );
+    console.log("{ duckType( new Student()) } = ", duckType( new Student() ) );
+
+</script>
+
+<script type="text/javascript">
+
+    function duckType2() {
+        return (this.hasOwnProperty('study'))?'student':'man';
+    }
+
+
+    console.log("{duckType2.call( new Man() )} = ", duckType2.call( new Man() ) );
+    console.log("{duckType2.call( new Student2() )} = ", duckType2.call( new Student2() ) );
 
 </script>
